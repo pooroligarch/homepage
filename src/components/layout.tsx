@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-import * as React from 'react'
-import { ReactNode } from 'react'
-import { Link } from 'gatsby'
-import '../css/index.css'
-=======
 import * as React from 'react';
 import { ReactNode } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import '../css/index.css';
->>>>>>> 3a0a38e (part 3 (broken))
 
 type LayoutProps = {
     pageTitle: string,

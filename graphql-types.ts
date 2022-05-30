@@ -351,6 +351,15 @@ export type GatsbyImagePlaceholder =
 
 export type MdxFrontmatter = {
   title: Scalars['String'];
+  date?: Maybe<Scalars['Date']>;
+};
+
+
+export type MdxFrontmatterDateArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 export type MdxHeadingMdx = {
@@ -886,6 +895,7 @@ export type MdxFilterInput = {
 
 export type MdxFrontmatterFilterInput = {
   title?: InputMaybe<StringQueryOperatorInput>;
+  date?: InputMaybe<DateQueryOperatorInput>;
 };
 
 export type MdxHeadingMdxFilterListInput = {
@@ -1035,6 +1045,7 @@ export type FileFieldsEnum =
   | 'childrenMdx___rawBody'
   | 'childrenMdx___fileAbsolutePath'
   | 'childrenMdx___frontmatter___title'
+  | 'childrenMdx___frontmatter___date'
   | 'childrenMdx___slug'
   | 'childrenMdx___body'
   | 'childrenMdx___excerpt'
@@ -1089,6 +1100,7 @@ export type FileFieldsEnum =
   | 'childMdx___rawBody'
   | 'childMdx___fileAbsolutePath'
   | 'childMdx___frontmatter___title'
+  | 'childMdx___frontmatter___date'
   | 'childMdx___slug'
   | 'childMdx___body'
   | 'childMdx___excerpt'
@@ -2667,6 +2679,7 @@ export type MdxFieldsEnum =
   | 'rawBody'
   | 'fileAbsolutePath'
   | 'frontmatter___title'
+  | 'frontmatter___date'
   | 'slug'
   | 'body'
   | 'excerpt'
@@ -3063,7 +3076,12 @@ export type StaticImageSortInput = {
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
-export type BlogIndexQueryVariables = Exact<{ [key: string]: never; }>;
+export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogIndexQuery = { allFile: { nodes: Array<{ name: string }> } };
+export type Unnamed_1_Query = { site?: { siteMetadata?: { title?: string | null } | null } | null };
+
+export type BlogArticleQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BlogArticleQuery = { allMdx: { nodes: Array<{ id: string, body: string, frontmatter?: { date?: any | null, title: string } | null }> } };

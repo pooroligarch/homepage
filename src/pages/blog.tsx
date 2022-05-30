@@ -1,33 +1,35 @@
-import * as React from 'react';
-import Layout from '../components/layout';
-import { graphql } from 'gatsby';
-import { BlogIndexQuery } from '../../graphql-types';
+import * as React from "react";
+import Layout from "../components/layout";
+import { Link, graphql } from "gatsby";
+import { BlogArticleQuery } from "../../graphql-types";
 
-const BlogPage = (data: BlogIndexQuery) => {
+const BlogPage = ({data}) => {
   return (
     <Layout pageTitle="My Blog Posts">
-      <ul>
-        {
-          data.allFile.nodes.map(node => (
-            <li key={node.name}>
-              {node.name}
-            </li>
-          ))
-        }
-      </ul>
-    </Layout >
+      {console.log(data)}
+      {data.allMdx.nodes.map((node: any) => (
+        <article key={node.id}>
+          <h2>{node.frontmatter.title}</h2>
+          <p>Posted: {node.frontmatter.date}</p>
+        </article>
+      ))}
+    </Layout>
   );
-}
+};
 
 export const query = graphql`
-  query BlogIndex{
-    allFile(filter: {sourceInstanceName: {eq: "blog"}}) {
+  query BlogArticle {
+    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
       nodes {
-        name
+        frontmatter {
+          date(formatString: "MMMM D, YYYY")
+          title
+        }
+        id
+        body
       }
     }
   }
-  
 `;
 
 export default BlogPage;
