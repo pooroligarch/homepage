@@ -394,6 +394,7 @@ export type Mdx = Node & {
   tableOfContents?: Maybe<Scalars['JSON']>;
   timeToRead?: Maybe<Scalars['Int']>;
   wordCount?: Maybe<MdxWordCount>;
+  gatsbyPath?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -414,6 +415,11 @@ export type MdxHeadingsArgs = {
 
 export type MdxTableOfContentsArgs = {
   maxDepth?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MdxGatsbyPathArgs = {
+  filePath?: InputMaybe<Scalars['String']>;
 };
 
 export type StaticImage = Node & {
@@ -766,6 +772,7 @@ export type QueryMdxArgs = {
   tableOfContents?: InputMaybe<JsonQueryOperatorInput>;
   timeToRead?: InputMaybe<IntQueryOperatorInput>;
   wordCount?: InputMaybe<MdxWordCountFilterInput>;
+  gatsbyPath?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -887,6 +894,7 @@ export type MdxFilterInput = {
   tableOfContents?: InputMaybe<JsonQueryOperatorInput>;
   timeToRead?: InputMaybe<IntQueryOperatorInput>;
   wordCount?: InputMaybe<MdxWordCountFilterInput>;
+  gatsbyPath?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1059,6 +1067,7 @@ export type FileFieldsEnum =
   | 'childrenMdx___wordCount___paragraphs'
   | 'childrenMdx___wordCount___sentences'
   | 'childrenMdx___wordCount___words'
+  | 'childrenMdx___gatsbyPath'
   | 'childrenMdx___id'
   | 'childrenMdx___parent___id'
   | 'childrenMdx___parent___parent___id'
@@ -1114,6 +1123,7 @@ export type FileFieldsEnum =
   | 'childMdx___wordCount___paragraphs'
   | 'childMdx___wordCount___sentences'
   | 'childMdx___wordCount___words'
+  | 'childMdx___gatsbyPath'
   | 'childMdx___id'
   | 'childMdx___parent___id'
   | 'childMdx___parent___parent___id'
@@ -2693,6 +2703,7 @@ export type MdxFieldsEnum =
   | 'wordCount___paragraphs'
   | 'wordCount___sentences'
   | 'wordCount___words'
+  | 'gatsbyPath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -3084,4 +3095,11 @@ export type Unnamed_1_Query = { site?: { siteMetadata?: { title?: string | null 
 export type BlogArticleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogArticleQuery = { allMdx: { nodes: Array<{ id: string, body: string, frontmatter?: { date?: any | null, title: string } | null }> } };
+export type BlogArticleQuery = { allMdx: { nodes: Array<{ id: string, slug?: string | null, frontmatter?: { date?: any | null, title: string } | null }> } };
+
+export type BlogPostQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type BlogPostQuery = { mdx?: { body: string, frontmatter?: { title: string, date?: any | null } | null } | null };

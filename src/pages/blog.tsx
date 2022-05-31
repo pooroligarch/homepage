@@ -1,15 +1,34 @@
 import * as React from "react";
 import Layout from "../components/layout";
 import { Link, graphql } from "gatsby";
-import { BlogArticleQuery } from "../../graphql-types";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
-const BlogPage = ({data}) => {
+type IBlogPost = {
+  frontmatter: {
+    date: string;
+    title: string;
+  };
+  id: string;
+  slug: string;
+  body: string;
+};
+
+type IBlogPostQuery = {
+  data: {
+    allMdx: {
+      nodes: IBlogPost[];
+    };
+  };
+};
+
+const BlogPage = ({ data }: IBlogPostQuery) => {
   return (
     <Layout pageTitle="My Blog Posts">
-      {console.log(data)}
-      {data.allMdx.nodes.map((node: any) => (
-        <article key={node.id}>
-          <h2>{node.frontmatter.title}</h2>
+      {data.allMdx.nodes.map((node) => (
+        <article key={node.id} className="my-4 prose">
+          <h2>
+            <Link to={`/blog/${node.slug}`}>{node.frontmatter.title}</Link>
+          </h2>
           <p>Posted: {node.frontmatter.date}</p>
         </article>
       ))}
@@ -26,7 +45,7 @@ export const query = graphql`
           title
         }
         id
-        body
+        slug
       }
     }
   }

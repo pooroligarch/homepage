@@ -5,10 +5,11 @@ import '../css/index.css';
 
 type LayoutProps = {
     pageTitle: string,
-    children: ReactNode
+    children: ReactNode,
+    className?: string
 }
 
-const Layout = ({pageTitle, children}: LayoutProps) => {
+const Layout = ({pageTitle, children, className = ''}: LayoutProps) => {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -20,7 +21,7 @@ const Layout = ({pageTitle, children}: LayoutProps) => {
   `);
 
   return (
-    <div className='max-w-md m-auto'>
+    <div className={`${className} max-w-md m-auto`}>
       <title>{pageTitle} | {data.site.siteMetadata.title}</title>
       <header className='text-gray-500 font-bold text-lg m-12'>{data.site.siteMetadata.title}</header>
       <nav>
